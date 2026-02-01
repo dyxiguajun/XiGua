@@ -11,6 +11,9 @@ dependencies = ["markdown"]
 generate-intro = "generate_intro:main"
 generate-blog = "generate_blog:main"
 
+[tool.setuptools.packages.find]
+exclude = ["blog", "posts"]
+
 [build-system]
 requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
