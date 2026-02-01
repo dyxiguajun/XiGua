@@ -67,7 +67,26 @@ python3 generate_blog.py
 
 - 模板：可编辑 `blog/template.html` 或 `generate_intro.py` 中的模板以更改样式与内容结构。
 - 发布：可以把 `blog/` 目录部署到 GitHub Pages、Netlify 或其他静态站点托管服务。
-- 自动化：仓库包含 GitHub Actions 工作流（CI 与 GitHub Pages 自动部署）。
+- 自动化：仓库包含 GitHub Actions 工作流（CI 与 GitHub Pages 自动部署）。示例部署片段：
+
+```yaml
+name: Pages
+on:
+  push:
+    branches: [ main ]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          publish_dir: ./blog
+```
+
+查看 `.github/workflows/pages.yml` 获取实际工作流与更多配置示例。
+
 - 安装为包（开发阶段）：
 
 ```bash
@@ -91,4 +110,4 @@ Bilibili: https://space.bilibili.com/402631059?spm_id_from=333.1007.0.0
 
 ---
 
-如果你希望我把 `README.md` 调整为更精简或更详细的版本，或加入自动部署示例与 CI 配置，告诉我你的偏好。
+需要文档改进或 CI/部署示例？欢迎通过 Issue 或提交 PR 提出你的想法，我会协助实现。

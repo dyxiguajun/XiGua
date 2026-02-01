@@ -4,6 +4,8 @@
 
 站点：https://dyxiguajun.github.io/XiGua/
 
+联系方式：Bilibili: https://space.bilibili.com/402631059?spm_id_from=333.1007.0.0
+
 这是一个用于生成个人简介和静态博客的小工具集：
 - 生成简介：`generate_intro.py` 会输出 `INTRO.md`（Markdown）和 `index.html`（HTML）。
 - 生成博客：`generate_blog.py` 会把 `posts/*.md` 转为 `blog/*.html`。
@@ -50,4 +52,4 @@ python3 generate_intro.py --language "Python, JavaScript" --years "4 年" --out-
 3. 本地复现：运行 `python3 generate_blog.py` 或 `pytest` 来定位问题。  
 4. 部署问题：确认 `blog/` 已正确生成，检查 Pages workflow 的上传/部署步骤日志。
 
-需要更详细的说明或把某些检查自动化（例如在 CI 中增加通知或保存更多 artifact）可以在 issue 或 PR 中提出改进建议。
+需要更详细的说明或把某些检查自动化（例如在 CI 中增加通知或保存更多 artifact），请通过 Issue 或提交 PR 来提出改进建议。
