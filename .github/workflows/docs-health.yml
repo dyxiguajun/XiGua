@@ -1,0 +1,24 @@
+name: Docs Health Check
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * *'  # daily at 00:00 UTC
+  workflow_dispatch: {}
+
+jobs:
+  check-docs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check docs URL
+        run: |
+          URL="https://dyxiguajun.github.io/XiGua/docs/"
+          echo "Checking $URL"
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL" || true)
+          echo "HTTP status: $STATUS"
+          if [ "$STATUS" != "200" ]; then
+            echo "Docs site returned $STATUS"
+            exit 1
+          fi
