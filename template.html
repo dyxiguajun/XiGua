@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{title} — 博客</title>
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+  <style>
+    header.site {{ max-width: 900px; margin: 32px auto; padding: 0 16px }}
+    main {{ max-width: 900px; margin: 12px auto; padding: 0 16px }}
+    footer.site {{ max-width: 900px; margin: 32px auto; padding: 0 16px; color: #666 }}
+    .post-meta {{ color: #666; font-size: 0.95rem }}
+  </style>
+</head>
+<body>
+  <header class="site" role="banner">
+    <nav>
+      <ul>
+        <li><a href="/">主页</a></li>
+        <li><a href="../index.html">博客</a></li>
+        <li><a href="{bilibili}" target="_blank" rel="noopener noreferrer">Bilibili</a></li>
+      </ul>
+    </nav>
+    <h1>博客</h1>
+    <p class="muted">个人文章与项目笔记</p>
+  </header>
+
+  <main>
+    <article>
+      <h2>{title}</h2>
+      <p class="post-meta">{date}</p>
+      <section>
+        {content}
+      </section>
+    </article>
+  </main>
+
+  <footer class="site">
+    <p>© {year} — 这是一个静态博客页，由仓库内脚本生成。</p>
+  </footer>
+</body>
+</html>
