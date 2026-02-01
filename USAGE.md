@@ -2,63 +2,52 @@
 
 [![CI](https://github.com/dyxiguajun/XiGua/actions/workflows/ci.yml/badge.svg)](https://github.com/dyxiguajun/XiGua/actions/workflows/ci.yml) [![Pages](https://github.com/dyxiguajun/XiGua/actions/workflows/pages.yml/badge.svg)](https://github.com/dyxiguajun/XiGua/actions/workflows/pages.yml)
 
-项目站点（GitHub Pages）：https://dyxiguajun.github.io/XiGua/
+站点：https://dyxiguajun.github.io/XiGua/
 
-这是一个简单脚本，用来生成个人简介的 `INTRO.md`（Markdown）和 `index.html`（HTML）。
+这是一个用于生成个人简介和静态博客的小工具集：
+- 生成简介：`generate_intro.py` 会输出 `INTRO.md`（Markdown）和 `index.html`（HTML）。
+- 生成博客：`generate_blog.py` 会把 `posts/*.md` 转为 `blog/*.html`。
 
-运行示例：
+快速示例
 
+生成简介：
 ```bash
 python3 generate_intro.py --out-md INTRO.md --out-html index.html
 ```
 
-可用参数（示例）：
+生成博客：
+```bash
+pip install -r requirements.txt
+python3 generate_blog.py
+```
 
-- `--school` 学校，默认：俄勒冈州立大学（Oregon State University）
-- `--status` 身份，默认：留学生
-- `--role` 角色，默认：全栈开发者 & 在校学生
-- `--language` 主要语言，默认：Python
-- `--years` 开发经验年限，默认：3 年
-- `--iot` 指定此参数表示有物联网经验（默认开启）
-- `--learning` 正在学习的技术，默认：HarmonyOS
-- `--bilibili` Bilibili 链接
-- `--lang` 输出语言（`zh` / `en` / `both`，默认为 `zh`）
+主要 CLI 参数（常用）
+
+- `--school`：学校（默认：俄勒冈州立大学）
+- `--status`：身份（默认：留学生）
+- `--role`：角色（默认：全栈开发者 & 在校学生）
+- `--language`：主要语言（默认：Python）
+- `--years`：经验年限（默认：3 年）
+- `--iot` / `--no-iot`：是否有物联网经验（默认：有）
+- `--learning`：正在学习（默认：HarmonyOS）
+- `--bilibili`：Bilibili 链接
+- `--lang`：输出语言（`zh` | `en` | `both`，默认：`zh`）
 
 示例：
-
 ```bash
 python3 generate_intro.py --language "Python, JavaScript" --years "4 年" --out-md my_intro.md
 ```
 
-生成博客页面（示例）：
+部署与 CI
 
-```bash
-# 推荐在虚拟环境中安装依赖
-pip3 install -r requirements.txt
+- CI（`.github/workflows/ci.yml`）会在 push/PR 时运行测试并检查功能。
+- Pages（`.github/workflows/pages.yml`）会在 push 到 `main` 时生成 `blog/` 并部署到 GitHub Pages。
 
-# 生成博客静态页面（会把 posts/*.md 转换到 blog/）
-python3 generate_blog.py
-```
+故障排查（简要）
 
-或者在安装为包后使用命令行工具：
+1. 查看仓库的 **Actions**：打开失败的 workflow，查看具体日志。  
+2. 常见问题：未安装依赖（运行 `pip install -r requirements.txt`）或 `posts/` 目录为空。  
+3. 本地复现：运行 `python3 generate_blog.py` 或 `pytest` 来定位问题。  
+4. 部署问题：确认 `blog/` 已正确生成，检查 Pages workflow 的上传/部署步骤日志。
 
-```bash
-pip install -e .
-generate-blog
-```
-
-注意：`generate_blog.py` 支持使用自定义输出目录与模板（`--out` / `--template` CLI 参数）。如果需要我可以添加更多部署或主题支持。
-
-## CI 与部署说明
-
-- 徽章说明：顶部的 **CI** 徽章表示 GitHub Actions 的测试工作流（`ci.yml`）状态；**Pages** 徽章表示 GitHub Pages 部署工作流（`pages.yml`）的最近部署状态。
-- CI 做了什么：`ci.yml` 会在每次 push/PR 到 `main` 时运行，安装依赖并执行 `pytest`（确保变更不会破坏生成逻辑）。
-- 自动部署：`pages.yml` 会在 push 到 `main` 时运行，执行 `generate_blog.py` 生成 `blog/`，并将生成内容部署到 GitHub Pages（仓库的 Pages 设置中可以看到站点 URL）。
-
-故障排查（快速步骤）：
-1. 查看 Actions 选项卡：打开仓库的 **Actions**，选择失败的 workflow，查看日志并定位报错步骤。  
-2. 常见问题：依赖未安装（检查 `pip install -r requirements.txt`），或 `posts/` 为空（生成器会期望至少一个 Markdown 文件）。  
-3. 本地复现：在本地运行 `python3 generate_blog.py` 或 `pytest` 来复现并调试问题。  
-4. 部署问题：如果 Pages 部署失败，检查 `Upload artifact` 与 `Deploy to GitHub Pages` 步骤的日志，确认 `blog/` 目录已正确生成并上传。  
-
-如果你希望我把这些排查步骤自动化（例如在 CI 中添加更详细的错误输出或通知），我可以为 workflow 添加更详细的日志与失败提醒。
+需要更详细的说明或把某些检查自动化（例如在 CI 中增加通知或保存更多 artifact）可以在 issue 或 PR 中提出改进建议。
