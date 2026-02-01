@@ -24,6 +24,11 @@ jobs:
       - name: Build site
         run: |
           python3 generate_blog.py
+          # Run tests and generate HTML coverage report
+          pytest -q --maxfail=1 --disable-warnings --cov=. --cov-report=html || true
+          # Move htmlcov into blog/coverage so it gets published at /coverage/
+          mkdir -p blog/coverage
+          if [ -d htmlcov ]; then mv htmlcov/* blog/coverage/; rm -rf htmlcov; fi
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
