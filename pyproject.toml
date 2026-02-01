@@ -1,0 +1,16 @@
+[project]
+name = "xigua"
+version = "0.1.0"
+description = "个人简介与静态博客生成工具"
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [ { name = "" } ]
+dependencies = ["markdown"]
+
+[project.scripts]
+generate-intro = "generate_intro:main"
+generate-blog = "generate_blog:main"
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
