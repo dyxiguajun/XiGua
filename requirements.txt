@@ -1,4 +1,4 @@
 markdown==3.10.1
 Pygments==2.19.2
 pytest==9.0.1
-pytest-cov==4.3.0
+pytest-cov==7.0.0
