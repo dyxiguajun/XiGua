@@ -29,9 +29,9 @@ jobs:
           # Move htmlcov into blog/coverage so it gets published at /coverage/
           mkdir -p blog/coverage
           if [ -d htmlcov ]; then mv htmlcov/* blog/coverage/; rm -rf htmlcov; fi
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+      - name: Deploy to GitHub Pages (gh-pages branch)
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: ./blog
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./blog
+          publish_branch: gh-pages
