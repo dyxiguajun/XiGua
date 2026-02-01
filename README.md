@@ -1,6 +1,6 @@
 # XiGua — 个人简介与博客生成工具
 
-[![CI](https://github.com/dyxiguajun/XiGua/actions/workflows/ci.yml/badge.svg)](https://github.com/dyxiguajun/XiGua/actions/workflows/ci.yml) [![Pages](https://github.com/dyxiguajun/XiGua/actions/workflows/pages.yml/badge.svg)](https://github.com/dyxiguajun/XiGua/actions/workflows/pages.yml)
+[![CI](https://github.com/dyxiguajun/XiGua/actions/workflows/ci.yml/badge.svg)](https://github.com/dyxiguajun/XiGua/actions/workflows/ci.yml) [![Pages](https://github.com/dyxiguajun/XiGua/actions/workflows/pages.yml/badge.svg)](https://github.com/dyxiguajun/XiGua/actions/workflows/pages.yml) [![Codecov](https://codecov.io/gh/dyxiguajun/XiGua/branch/main/graph/badge.svg)](https://codecov.io/gh/dyxiguajun/XiGua)
 
 项目站点（部署到 GitHub Pages）: https://dyxiguajun.github.io/XiGua/
 
