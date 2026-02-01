@@ -1,0 +1,7 @@
+site_name: XiGua Docs
+site_url: https://dyxiguajun.github.io/XiGua/
+nav:
+  - Home: README.md
+  - Usage: USAGE.md
+theme:
+  name: readthedocs
