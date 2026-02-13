@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Check docs URL
         run: |
-          URL="https://dyxiguajun.github.io/XiGua/docs/"
+          URL="https://dyxiguajun.github.io/"
           echo "Checking $URL"
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL" || true)
           echo "HTTP status: $STATUS"
