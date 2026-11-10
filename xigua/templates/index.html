@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}{{ site.title }}{% if site.profile.headline %} · {{ site.profile.headline }}{% endif %}{% endblock %}
+
+{% block body %}
+<main id="main" class="wrap">
+  <section class="hero">
+    <div class="avatar-wrap">
+      {% if site.profile.avatar %}
+      <img class="avatar" src="{{ site.profile.avatar }}" alt="{{ site.title }} 的头像" width="112" height="112"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+      {% endif %}
+      <div class="avatar avatar-fallback"{% if site.profile.avatar %} style="display:none"{% endif %} aria-hidden="true">{{ site.title[:1] }}</div>
+    </div>
+
+    <div class="hero-copy">
+      {% if site.profile.status %}
+      <p class="status"><span class="status-dot" aria-hidden="true"></span>{{ site.profile.status }}</p>
+      {% endif %}
+      <h1>{{ site.title }}</h1>
+      {% if site.profile.headline %}<p class="headline">{{ site.profile.headline }}</p>{% endif %}
+      {% if site.profile.bio %}<p class="bio">{{ site.profile.bio }}</p>{% endif %}
+      <div class="hero-actions">
+        <a class="button" href="{{ url_for('blog/') }}">读文章</a>
+        {% for link in site.links %}
+        <a class="button button-ghost" href="{{ link.url }}"{% if link.url.startswith('http') %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ link.label }}</a>
+        {% endfor %}
+      </div>
+      {% if site.profile.location %}
+      <p class="location">📍 {{ site.profile.location }}</p>
+      {% endif %}
+    </div>
+  </section>
+
+  {% if site.projects %}
+  <section class="section" aria-labelledby="projects-title">
+    <div class="section-head">
+      <h2 id="projects-title">项目</h2>
+    </div>
+    <div class="project-grid">
+      {% for project in site.projects %}
+      <article class="card project-card">
+        <div class="project-top">
+          <h3>
+            {% if project.url %}<a href="{{ project.url }}"{% if project.url.startswith('http') %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ project.name }}</a>{% else %}{{ project.name }}{% endif %}
+          </h3>
+          {% if project.year %}<span class="project-year">{{ project.year }}</span>{% endif %}
+        </div>
+        {% if project.description %}<p>{{ project.description }}</p>{% endif %}
+        {% if project.tags %}
+        <ul class="tags" aria-label="项目标签">
+          {% for tag in project.tags %}<li>{{ tag }}</li>{% endfor %}
+        </ul>
+        {% endif %}
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="section" aria-labelledby="posts-title">
+    <div class="section-head">
+      <h2 id="posts-title">最近文章</h2>
+      <a class="section-more" href="{{ url_for('blog/') }}">全部文章 <span aria-hidden="true">→</span></a>
+    </div>
+    {% if posts %}
+    <ul class="post-list">
+      {% for post in posts %}
+      <li class="post-item">
+        <a class="post-item-link" href="{{ url_for(post.path) }}">
+          <div class="post-item-top">
+            <time datetime="{{ post.date.isoformat() }}">{{ post.date | datefmt }}</time>
+            <span class="post-reading">{{ post.reading_minutes }} 分钟</span>
+          </div>
+          <h3>{{ post.title }}</h3>
+          <p>{{ post.excerpt }}</p>
+          {% if post.tags %}
+          <ul class="tags" aria-label="文章标签">
+            {% for tag in post.tags %}<li>{{ tag }}</li>{% endfor %}
+          </ul>
+          {% endif %}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <div class="empty">
+      <p>还没有文章。</p>
+      <p class="muted">运行 <code>xigua new "我的第一篇文章"</code> 开始写作。</p>
+    </div>
+    {% endif %}
+  </section>
+</main>
+{% endblock %}

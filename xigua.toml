@@ -1,0 +1,63 @@
+[site]
+title = "西瓜"
+description = "计算机科学学生，记录项目、学习过程和创作。"
+url = "https://dyxiguajun.github.io/XiGua"
+lang = "zh-CN"
+author = "西瓜"
+accent = "#ea580c"
+footer = "用 XiGua 生成 · 内容归作者所有"
+
+[profile]
+status = "在俄勒冈州立大学读计算机科学"
+headline = "Python / Flutter / Arduino"
+bio = "在俄勒冈州立大学读计算机科学，预计 2030 年 6 月毕业。平时用 Python、Flutter 和 Arduino 做小项目，也在尝试 Codex、Claude Code 和 Ollama 这类 AI 开发工具。这里记录项目、踩过的坑和正在学的东西。"
+location = "Oregon, USA"
+avatar = ""
+
+[[links]]
+label = "GitHub"
+url = "https://github.com/dyxiguajun"
+icon = "github"
+
+[[links]]
+label = "Bilibili"
+url = "https://space.bilibili.com/402631059"
+icon = "video"
+
+[[projects]]
+name = "GuardianCare Wearable"
+description = "黑客松项目：参与 Arduino 可穿戴设备的焊接与调试，定位传感器连接问题，并协助验证固件修复后的读数。"
+tags = ["Arduino", "Hackathon"]
+year = "2026"
+
+[[projects]]
+name = "GPTCH Search"
+description = "面向 Bilibili、小红书、知乎和百度贴吧的搜索工具；参与定义搜索范围与登录、归档、检索需求，并测试其中两个平台。"
+tags = ["Python", "Automation"]
+year = "2026"
+
+[[projects]]
+name = "CallRool-App"
+description = "为 Flutter 考勤应用添加 macOS 支持，配置沙盒权限并修复窗口缩放时的菜单定位问题；相关改动已合入上游 PR #11。"
+tags = ["Flutter", "macOS", "Open Source"]
+year = "2026"
+
+[[projects]]
+name = "Bili CC Extractor"
+description = "本地 Python 工具，把 Bilibili 自动字幕导出为 SRT；支持视频 URL 和 BV 号两种输入。"
+tags = ["Python", "Bilibili"]
+year = "2025"
+
+[[projects]]
+name = "XiGua"
+description = "这个站点本身：一个用 Python 写的小型静态站点生成器，把一份 TOML 配置和 Markdown 文件变成个人主页与博客。"
+url = "https://github.com/dyxiguajun/XiGua"
+tags = ["Python", "Static Site", "Markdown"]
+year = "2026"
+
+[content]
+posts = "posts"
+static = "static"
+
+[build]
+out = "dist"

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}404 · {{ site.title }}{% endblock %}
+{% block body_class %}page-404{% endblock %}
+
+{% block body %}
+<main id="main" class="wrap">
+  <div class="not-found">
+    <p class="eyebrow">404</p>
+    <h1>页面不存在。</h1>
+    <p class="muted">页面可能被移动过，或者链接写错了。</p>
+    <div class="hero-actions">
+      <a class="button" href="{{ url_for('') }}">回到首页</a>
+      <a class="button button-ghost" href="{{ url_for('blog/') }}">看看文章</a>
+    </div>
+  </div>
+</main>
+{% endblock %}

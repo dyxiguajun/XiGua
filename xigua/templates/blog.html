@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}文章 · {{ site.title }}{% endblock %}
+{% block body_class %}page-blog{% endblock %}
+
+{% block body %}
+<main id="main" class="wrap">
+  <header class="page-head">
+    <div>
+      <p class="eyebrow">Writing</p>
+      <h1>文章</h1>
+      <p class="muted">{{ posts | length }} 篇 · {{ site.description or '按时间倒序排列。' }}</p>
+    </div>
+    <a class="button button-ghost" href="{{ url_for('feed.xml') }}">RSS</a>
+  </header>
+
+  {% if tags %}
+  <nav class="tag-cloud" aria-label="全部标签">
+    {% for tag in tags %}
+    <a href="{{ url_for('tags/' ~ tag.slug ~ '/') }}">#{{ tag.name }}<span>{{ tag.count }}</span></a>
+    {% endfor %}
+  </nav>
+  {% endif %}
+
+  <div class="search-wrap">
+    <label class="sr-only" for="search">搜索文章</label>
+    <input id="search" type="search" placeholder="搜索标题、摘要或标签…" autocomplete="off" spellcheck="false">
+    <kbd class="search-hint" aria-hidden="true">/</kbd>
+  </div>
+
+  {% if posts %}
+  <ul class="post-list post-list-full" id="post-list">
+    {% for post in posts %}
+    <li class="post-item" data-search="{{ (post.title ~ ' ' ~ post.excerpt ~ ' ' ~ post.tags | join(' ')) | lower }}">
+      <a class="post-item-link" href="{{ url_for(post.path) }}">
+        <div class="post-item-top">
+          <time datetime="{{ post.date.isoformat() }}">{{ post.date | datefmt }}</time>
+          <span class="post-reading">{{ post.reading_minutes }} 分钟</span>
+        </div>
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.excerpt }}</p>
+        {% if post.tags %}
+        <ul class="tags" aria-label="文章标签">
+          {% for tag in post.tags %}<li>{{ tag }}</li>{% endfor %}
+        </ul>
+        {% endif %}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+  <p class="empty" id="no-results" hidden>没有匹配的文章，换个关键词试试。</p>
+  {% else %}
+  <div class="empty">
+    <p>还没有文章。</p>
+    <p class="muted">运行 <code>xigua new "我的第一篇文章"</code> 开始写作。</p>
+  </div>
+  {% endif %}
+</main>
+{% endblock %}

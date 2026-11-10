@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}标签 · {{ site.title }}{% endblock %}
+{% block body_class %}page-tags{% endblock %}
+
+{% block body %}
+<main id="main" class="wrap">
+  <header class="page-head">
+    <div>
+      <p class="eyebrow">Tags</p>
+      <h1>标签</h1>
+      <p class="muted">按主题浏览文章。</p>
+    </div>
+  </header>
+
+  {% if tags %}
+  <div class="tag-grid">
+    {% for tag in tags %}
+    <a class="tag-card" href="{{ url_for('tags/' ~ tag.slug ~ '/') }}">
+      <span class="tag-name">#{{ tag.name }}</span>
+      <span class="tag-count">{{ tag.count }} 篇</span>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty"><p>还没有标签。</p></div>
+  {% endif %}
+</main>
+{% endblock %}

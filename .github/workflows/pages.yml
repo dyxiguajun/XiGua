@@ -1,37 +1,48 @@
-name: Build and Deploy Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
 jobs:
-  build_and_deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
+
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-      - name: Install
+          python-version: "3.13"
+          cache: pip
+
+      - name: Install XiGua
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install .
+
       - name: Build site
-        run: |
-          python3 generate_blog.py
-          # Run tests and generate HTML coverage report
-          pytest -q --maxfail=1 --disable-warnings --cov=. --cov-report=html || true
-          # Move htmlcov into blog/coverage so it gets published at /coverage/
-          mkdir -p blog/coverage
-          if [ -d htmlcov ]; then mv htmlcov/* blog/coverage/; rm -rf htmlcov; fi
-      - name: Deploy to GitHub Pages (gh-pages branch)
-        uses: peaceiris/actions-gh-pages@v4
+        run: xigua build
+
+      - uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./blog
-          publish_branch: gh-pages
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}#{{ tag.name }} · {{ site.title }}{% endblock %}
+{% block body_class %}page-tag{% endblock %}
+
+{% block body %}
+<main id="main" class="wrap">
+  <header class="page-head">
+    <div>
+      <a class="back-link" href="{{ url_for('tags/') }}">← 全部标签</a>
+      <p class="eyebrow">Tag</p>
+      <h1>#{{ tag.name }}</h1>
+      <p class="muted">{{ tag.count }} 篇文章</p>
+    </div>
+  </header>
+
+  <ul class="post-list">
+    {% for post in posts %}
+    <li class="post-item">
+      <a class="post-item-link" href="{{ url_for(post.path) }}">
+        <div class="post-item-top">
+          <time datetime="{{ post.date.isoformat() }}">{{ post.date | datefmt }}</time>
+          <span class="post-reading">{{ post.reading_minutes }} 分钟</span>
+        </div>
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.excerpt }}</p>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</main>
+{% endblock %}

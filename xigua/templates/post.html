@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} · {{ site.title }}{% endblock %}
+{% block body_class %}page-post{% endblock %}
+
+{% block body %}
+<main id="main" class="wrap">
+  <article class="post">
+    <header class="post-header">
+      <a class="back-link" href="{{ url_for('blog/') }}">← 返回文章</a>
+      <div class="post-item-top">
+        <time datetime="{{ post.date.isoformat() }}">{{ post.date | datefmt }}</time>
+        <span class="post-reading">{{ post.reading_minutes }} 分钟阅读</span>
+      </div>
+      <h1>{{ post.title }}</h1>
+      {% if post.description %}<p class="post-description">{{ post.description }}</p>{% endif %}
+      {% if post.tags %}
+      <ul class="tags" aria-label="文章标签">
+        {% for tag in post.tags %}
+        <li><a href="{{ url_for('tags/' ~ (tag | tag_slug) ~ '/') }}">#{{ tag }}</a></li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </header>
+
+    {% if post.cover %}
+    <figure class="post-cover">
+      <img src="{{ post.cover }}" alt="{{ post.title }}" loading="eager">
+    </figure>
+    {% endif %}
+
+    {% if post.toc and '<li>' in post.toc %}
+    <details class="toc">
+      <summary>本文目录</summary>
+      {{ post.toc | safe }}
+    </details>
+    {% endif %}
+
+    <div class="prose">
+      {{ post.html | safe }}
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-footer-top">
+        <p class="muted">写于 {{ post.date | datefmt }} · 约 {{ post.reading_minutes }} 分钟</p>
+        <a class="button button-ghost" href="{{ url_for('blog/') }}">更多文章</a>
+      </div>
+
+      {% if prev or next %}
+      <nav class="post-nav" aria-label="上一篇和下一篇">
+        {% if prev %}
+        <a class="post-nav-item" href="{{ url_for(prev.path) }}">
+          <span class="post-nav-label">← 上一篇</span>
+          <span class="post-nav-title">{{ prev.title }}</span>
+        </a>
+        {% endif %}
+        {% if next %}
+        <a class="post-nav-item post-nav-next" href="{{ url_for(next.path) }}">
+          <span class="post-nav-label">下一篇 →</span>
+          <span class="post-nav-title">{{ next.title }}</span>
+        </a>
+        {% endif %}
+      </nav>
+      {% endif %}
+    </footer>
+  </article>
+
+  {% if related %}
+  <section class="section related" aria-labelledby="related-title">
+    <div class="section-head">
+      <h2 id="related-title">相关文章</h2>
+    </div>
+    <ul class="post-list">
+      {% for item in related %}
+      <li class="post-item">
+        <a class="post-item-link" href="{{ url_for(item.path) }}">
+          <div class="post-item-top">
+            <time datetime="{{ item.date.isoformat() }}">{{ item.date | datefmt }}</time>
+          </div>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.excerpt }}</p>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+</main>
+{% endblock %}
